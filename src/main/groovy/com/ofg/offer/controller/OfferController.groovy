@@ -1,5 +1,4 @@
 package com.ofg.offer.controller
-
 import com.codahale.metrics.Counter
 import com.codahale.metrics.MetricRegistry
 import com.ofg.db.Repository
@@ -11,6 +10,7 @@ import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 import javax.annotation.PostConstruct
 import javax.validation.constraints.NotNull
 
+import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.web.bind.annotation.RequestMethod.GET
 import static org.springframework.web.bind.annotation.RequestMethod.PUT
 
@@ -49,9 +50,10 @@ class OfferController {
     
     @RequestMapping(value = '/{loanApplicationId}', method = PUT)
     @ApiOperation(value = "Marketing offer proposals for loan application", notes = "Will decide what to offer for the client")
-    void createOffer(@PathVariable @NotNull String loanApplicationId, @RequestBody @NotNull MarketingOfferRequestBean requestBean) {
+    ResponseEntity createOffer(@PathVariable @NotNull String loanApplicationId, @RequestBody @NotNull MarketingOfferRequestBean requestBean) {
         createOfferCounter.inc()
         repository.insertNewMarketingOffer(requestBean, decisionService.createOffer(requestBean))
+        new ResponseEntity(CREATED)
     }
 
     @RequestMapping(value = '/{firstName}_{lastName}', method = GET)
