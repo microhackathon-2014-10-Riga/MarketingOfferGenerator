@@ -1,8 +1,7 @@
 {
-    "pl": {
-        "this": "pl/microhackaton/twitter-places-analyzer",
+    "europe": {
+        "this": "lt/microhackathon/marketting-offer-generator",
         "dependencies": {
-            "collerator" : "pl/microhackaton/twitter-places-analyzer"
         }
     }
 }
