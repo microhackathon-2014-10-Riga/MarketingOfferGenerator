@@ -1,6 +1,6 @@
 {
     "europe": {
-        "this": "lt/microhackathon/marketting-offer-generator",
+        "this": "lt/microhackathon/marketing-offer-generator",
         "dependencies": {
         }
     }
